@@ -1,0 +1,158 @@
+--- 
+  kernel: Linux
+  uniqueid: a8c03f01
+  virtual: physical
+  is_virtual: false
+  architecture: x86_64
+  hardwaremodel: x86_64
+  operatingsystem: Fedora
+  os: 
+    name: Fedora
+    family: RedHat
+    release: 
+      major: "23"
+      full: "23"
+    lsb: 
+      distcodename: TwentyThree
+      distid: Fedora
+      distdescription: "Fedora release 23 (Twenty Three)"
+      release: ":core-4.1-amd64:core-4.1-noarch:cxx-4.1-amd64:cxx-4.1-noarch:desktop-4.1-amd64:desktop-4.1-noarch:languages-4.1-amd64:languages-4.1-noarch:printing-4.1-amd64:printing-4.1-noarch"
+      distrelease: "23"
+      majdistrelease: "23"
+  path: "/home/lars/gopath/bin:/home/lars/env/common/bin:/home/lars/bin:/home/lars/.local/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin"
+  kernelversion: "4.2.5"
+  id: lars
+  network_br_infra: "172.31.255.254"
+  network_br_public: "172.24.4.224"
+  network_docker0: "172.17.0.0"
+  network_enp0s25: "192.168.1.0"
+  network_lo: "127.0.0.0"
+  network_redhat: "10.3.112.0"
+  network_virbr0: "192.168.124.0"
+  hostname: lkellogg-pk115wp
+  gid: lars
+  system_uptime: 
+    seconds: 398117
+    hours: 110
+    days: 4
+    uptime: "4 days"
+  operatingsystemmajrelease: "23"
+  ps: "ps -ef"
+  lsbmajdistrelease: "23"
+  physicalprocessorcount: 1
+  uptime_hours: 110
+  rubysitedir: /usr/local/share/ruby/site_ruby
+  memorysize: "15.44 GB"
+  memoryfree: "5.14 GB"
+  swapsize: "32.00 GB"
+  swapfree: "31.95 GB"
+  swapsize_mb: "32768.00"
+  swapfree_mb: "32719.16"
+  memorysize_mb: "15815.25"
+  memoryfree_mb: "5266.06"
+  blockdevice_sda_size: 500107862016
+  blockdevice_sda_vendor: ATA
+  blockdevice_sda_model: "HGST HTS725050A7"
+  blockdevice_sdb_size: 240057409536
+  blockdevice_sdb_vendor: ATA
+  blockdevice_sdb_model: Crucial_CT240M50
+  blockdevice_sr0_size: 1073741312
+  blockdevice_sr0_vendor: HL-DT-ST
+  blockdevice_sr0_model: "DVDRAM GT80N"
+  blockdevice_mmcblk0_size: 16130244608
+  blockdevices: "mmcblk0,sda,sdb,sr0"
+  facterversion: "2.4.1"
+  osfamily: RedHat
+  ipaddress: "172.31.255.254"
+  uptime_seconds: 398117
+  lsbdistcodename: TwentyThree
+  fqdn: myserver.example.com
+  selinux: true
+  selinux_enforced: false
+  selinux_policyversion: "29"
+  selinux_current_mode: permissive
+  selinux_config_mode: permissive
+  selinux_config_policy: unknown
+  netmask: "255.255.255.255"
+  lsbdistid: Fedora
+  hardwareisa: x86_64
+  processors: 
+    models: 
+      - "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+      - "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+      - "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+      - "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+      - "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+      - "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+      - "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+      - "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+    count: 8
+    physicalcount: 1
+  lsbrelease: ":core-4.1-amd64:core-4.1-noarch:cxx-4.1-amd64:cxx-4.1-noarch:desktop-4.1-amd64:desktop-4.1-noarch:languages-4.1-amd64:languages-4.1-noarch:printing-4.1-amd64:printing-4.1-noarch"
+  kernelrelease: "4.2.5-300.fc23.x86_64"
+  domain: redhat.com
+  filesystems: "ext2,ext3,ext4,vfat,xfs"
+  rubyplatform: x86_64-linux
+  lsbdistdescription: "Fedora release 23 (Twenty Three)"
+  interfaces: "br_infra,br_public,docker0,enp0s25,lo,redhat,virbr0,virbr0_nic,vnet0,vnet1,wlp3s0"
+  ipaddress_br_infra: "172.31.255.254"
+  macaddress_br_infra: "16:8b:36:d3:e7:01"
+  netmask_br_infra: "255.255.255.255"
+  mtu_br_infra: 1500
+  ipaddress_br_public: "172.24.4.225"
+  macaddress_br_public: "fe:54:00:84:d9:cf"
+  netmask_br_public: "255.255.255.240"
+  mtu_br_public: 1500
+  ipaddress_docker0: "172.17.42.1"
+  macaddress_docker0: "02:42:7c:5a:ec:f8"
+  netmask_docker0: "255.255.0.0"
+  mtu_docker0: 1500
+  ipaddress_enp0s25: "192.168.1.63"
+  macaddress_enp0s25: "3c:97:0e:bf:6d:ce"
+  netmask_enp0s25: "255.255.255.0"
+  mtu_enp0s25: 1500
+  ipaddress_lo: "127.0.0.1"
+  netmask_lo: "255.0.0.0"
+  mtu_lo: 65536
+  ipaddress_redhat: "10.3.112.45"
+  netmask_redhat: "255.255.255.0"
+  mtu_redhat: 1500
+  ipaddress_virbr0: "192.168.124.1"
+  macaddress_virbr0: "52:54:00:d0:56:99"
+  netmask_virbr0: "255.255.255.0"
+  mtu_virbr0: 1500
+  macaddress_virbr0_nic: "52:54:00:d0:56:99"
+  mtu_virbr0_nic: 1500
+  macaddress_vnet0: "fe:54:00:7b:13:63"
+  mtu_vnet0: 1500
+  macaddress_vnet1: "fe:54:00:84:d9:cf"
+  mtu_vnet1: 1500
+  macaddress_wlp3s0: "3c:a9:f4:5a:8b:24"
+  mtu_wlp3s0: 1500
+  dhcp_servers: 
+    system: "192.168.1.1"
+    enp0s25: "192.168.1.1"
+  kernelmajversion: "4.2"
+  macaddress: "16:8b:36:d3:e7:01"
+  operatingsystemrelease: "23"
+  partitions: 
+    sda1: 
+      uuid: f6f8ccd8-ac2a-4e29-a5dc-0b8234105731
+      size: "1024000"
+      mount: /boot
+    sda2: 
+      size: "975747072"
+  lsbdistrelease: "23"
+  timezone: EST
+  rubyversion: "2.2.3"
+  uptime_days: 4
+  uptime: "4 days"
+  processor0: "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+  processor1: "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+  processor2: "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+  processor3: "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+  processor4: "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+  processor5: "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+  processor6: "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+  processor7: "Intel(R) Core(TM) i7-3740QM CPU @ 2.70GHz"
+  processorcount: 8

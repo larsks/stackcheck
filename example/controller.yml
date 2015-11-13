@@ -1,0 +1,102 @@
+name: validate configuration on controller nodes
+load:
+  - path: 
+      - /etc/nova/nova.conf
+      - /usr/share/nova/nova-dist.conf
+    lens: Puppet
+  - path: /etc/haproxy/haproxy.conf
+    lens: Haproxy
+  - path:
+      - /etc/my.cnf
+      - /etc/my.cnf.d/*.cnf
+    lens: MySQL
+rulesets:
+  - name: validate haproxy configuration
+    rules:
+      - name: check that max_connections >= 4096
+        kburl: https://access.redhat.com/solutions/1990433
+        vars:
+          value: /etc/my.cnf.d/*[target="mysqld"]/target[. = "mysqld"]/max_connections
+        assert: value|int >= 4096
+
+      - name: check that haproxy maxconn matches haproxy maxconn
+        kburl: https://access.redhat.com/solutions/1595673
+        vars:
+          value_from_haproxy: /etc/haproxy/haproxy.cfg/listen[name="galera" or name="mysql"]/maxconn
+          value_from_mysql: /etc/my.cnf.d/*[target="mysqld"]/target[. = "mysqld"]/max_connections
+        assert: value_from_haproxy == value_from_mysql
+        message: >
+          The maxconn setting used in the haproxy stanza for mysql
+          should match the MySQL max_connections setting.  Otherwise, 
+          haproxy will use a default value of 2000 for the proxy 
+          maxconn settings.
+
+          Value in mysql: {{value_from_mysql}}
+
+          Value in haproxy: {{value_from_haproxy|default('(not set)')}}
+
+  - name: validate open file limits
+    rules:
+      - name: check for appropriate mysql open_files_limit
+        kburl: https://access.redhat.com/solutions/1602153
+        vars:
+          value: /etc/my.cnf.d/*[target="mysqld"]/target[. = "mysqld"]/open_files_limit
+        assert: >
+          value|int < 0 or value|int > 16384
+        message: >
+          The default file_descriptor limit for MariaDB is low for openstack.
+          We recommend to increase this to at least 16384.  Your mysql 
+          configuration has this set to {{value}}.
+
+      - name: check for appropriate rabbitmq open files limit (systemd)
+        kburl: https://access.redhat.com/solutions/1465753
+        vars:
+          value_for_systemd: /etc/systemd/system/rabbitmq-server.service.d/limits.conf/Service/LimitNOFILE/value
+        assert: >
+          (value_for_systemd|default(0)|int >= 65436)
+        message: >
+          rabbitmq-server is configured with the default file_descriptor limit
+          of 924 which is very low for an openstack environment.  It's
+          recommended to increase this to at least 65436. 
+
+          Value used by systemd services: {{value_for_systemd|default('(not set)')}}
+          
+      - name: check for appropriate rabbitmq open files limit (ocf)
+        kburl: https://access.redhat.com/solutions/1465753
+        vars:
+          value_for_ocf: /etc/security/limits.d/*[domain = "rabbitmq"]/*[item = "nofile"][type = "hard" or type = "-"]/value
+        assert: >
+          (value_for_ocf|default(0)|int >= 65436)
+        message: >
+          rabbitmq-server is configured with the default file_descriptor limit
+          of 924 which is very low for an openstack environment.  It's
+          recommended to increase this to at least 65436 by create the
+          appropriate file in /etc/security/limit.d.
+
+          Value used by ocf resource: {{value_for_legacy|default('(not set)')}}
+
+  - name: validate nova configuration
+    rules:
+
+      - name: check that number of nova api workers is set explicitly
+        vars:
+          value: /etc/nova/nova.conf/DEFAULT/osapi_compute_workers
+        assert: value is defined
+        message: >
+          osapi_compute_workers defaults to the number of processors available
+          on your system ({{facts.processors.count}}).  This may not make when
+          you are hosting multiple services on the same controller.  You should 
+          this value explicitly in nova.conf.
+
+      - name: check that number of nova api workers is appropriate
+        kburl: https://access.redhat.com/solutions/1990433
+        vars:
+          value: /etc/nova/nova.conf/DEFAULT/osapi_compute_workers
+        assert: >
+          value|default(facts.processors.count)|int
+          == (facts.processors.count*3)
+        message: >
+          A default deployment of RHEL-OSP Director configures the number of 
+          nova-api workers to three times the number of processors.  Your
+          system has {{facts.processors.count}} processors, so this value
+          should be set to {{facts.processors.count * 3 }}.

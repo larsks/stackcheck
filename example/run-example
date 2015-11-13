@@ -1,0 +1,14 @@
+#!/bin/sh
+
+export PYTHONPATH=$PWD/../
+
+if ! [ -d "$1/etc" ]; then
+	echo "You need to provide the path to a synthesized"
+	echo "root filesystem as the first argument to this"
+	echo "script."
+
+	exit 1
+fi
+
+python ../stackcheck/main.py controller.yml \
+	--root "$1" -v -f facts.yml -I lenses
