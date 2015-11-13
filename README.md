@@ -71,6 +71,8 @@ expressions][].  These variables are made available for use in the
 evaluation (which means you have access to all the standard Jinja2
 filters and tests).
 
+[jinja2]: http://jinja.pocoo.org/
+
 The `message` and `url` directives are used to display information in
 the event that a test fails.  For example, using a simple console
 output formatter, running the above test might result in:
@@ -96,16 +98,25 @@ You can try this out by running:
 Some configuration options need to be tuned based on facts about the
 operating system environment.  For example, according to [KB 1990433][], the
 the [nova][] `osapi_compute_workers` option should set to (the number
-of processors * 2).  The following rule would validate this
+of processors * 3).  The following rule would validate this
 configuration:
+
+[nova]: https://wiki.openstack.org/wiki/Nova
 
 [KB 1990433]: https://access.redhat.com/solutions/1990433
 
       - name: check that number of nova api workers is appropriate
+        kburl: https://access.redhat.com/solutions/1990433
         vars:
           value: /etc/nova/nova.conf/DEFAULT/osapi_compute_workers
         assert: >
-          value|default(facts.processors.count)|int == (facts.processors.count*2)
+          value|default(facts.processors.count)|int
+          == (facts.processors.count*3)
+        message: >
+          A default deployment of RHEL-OSP Director configures the number of 
+          nova-api workers to three times the number of processors.  Your
+          system has {{facts.processors.count}} processors, so this value
+          should be set to {{facts.processors.count * 3 }}.
 
 The facts available in the `facts` dictionary are provided by
 [facter][], and are obtained either by running facter and parsing the
@@ -113,4 +124,12 @@ output or by using a cached copy of that output (which allows this
 tool to be run somewhere other than on the live system).
 
 [facter]: https://puppetlabs.com/facter
+
+Running the above rule might result in output like:
+
+    * check that number of nova api workers is appropriate: FAILED
+
+        A default deployment of RHEL-OSP Director configures the number of
+        nova-api workers to three times the number of processors.  Your
+        system has 8 processors, so this value should be set to 24.
 
