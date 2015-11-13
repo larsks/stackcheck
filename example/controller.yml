@@ -1,4 +1,8 @@
 name: validate configuration on controller nodes
+
+# The `load` section is where you add transformations
+# to Augeas.  Note that the "Puppet" lens, below, is a fairly 
+# generic realization of the INI parser.
 load:
   - path: 
       - /etc/nova/nova.conf
@@ -10,6 +14,8 @@ load:
       - /etc/my.cnf
       - /etc/my.cnf.d/*.cnf
     lens: MySQL
+
+# Rulesets are just a way of thematically grouping rules.
 rulesets:
   - name: validate haproxy configuration
     rules:

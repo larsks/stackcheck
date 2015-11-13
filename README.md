@@ -71,6 +71,10 @@ expressions][].  These variables are made available for use in the
 evaluation (which means you have access to all the standard Jinja2
 filters and tests).
 
+The `url` directive provides a link to documentation further
+describing the recommended configuration.  One imagines that an HTML
+output formatter could use this to provide contextual links.
+
 [jinja2]: http://jinja.pocoo.org/
 
 The `message` and `url` directives are used to display information in
