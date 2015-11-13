@@ -8,7 +8,6 @@ import argparse
 import logging
 import yaml
 import jinja2
-import jsonpointer
 import subprocess
 import fnmatch
 import augeas

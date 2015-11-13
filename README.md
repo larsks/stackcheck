@@ -22,7 +22,18 @@ files, and reads rules described in a YAML input file.
 
 [augeas]: http://augeas.net/
 
-## Example 1
+## Examples
+
+The following examples demonstrate my current vision of the rule
+syntax.  There is sample data in the `example/` directory that you can
+use to try these out.
+
+The file `example/controller.yml` contains the rules referenced in
+these examples.  The script `example/run-example` as the necessary
+command line invocation to make sure things work, provided that you
+have the necessary prerequisites installed.
+
+### Example 1
 
 You can try this out by running:
 
@@ -76,7 +87,7 @@ output formatter, running the above test might result in:
 
 [path expressions]: https://github.com/hercules-team/augeas/wiki/Path-expressions
 
-## Example 2
+### Example 2
 
 You can try this out by running:
 
