@@ -10,5 +10,7 @@ if ! [ -d "$1/etc" ]; then
 	exit 1
 fi
 
+root="$1"
+shift
 python ../stackcheck/main.py controller.yml \
-	--root "$1" -v -f facts.yml -I lenses
+	--root "$root" -v -f facts.yml -I lenses "$@"

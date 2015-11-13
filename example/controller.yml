@@ -29,21 +29,23 @@ rulesets:
         kburl: https://access.redhat.com/solutions/1595673
         vars:
           value_from_haproxy: /etc/haproxy/haproxy.cfg/listen[name="galera" or name="mysql"]/maxconn
-          value_from_mysql: /etc/my.cnf.d/*[target="mysqld"]/target[. = "mysqld"]/max_connections
-        assert: value_from_haproxy == value_from_mysql
+          value_from_mariadb: /etc/my.cnf.d/*[target="mysqld"]/target[. = "mysqld"]/max_connections
+        assert: value_from_haproxy == value_from_mariadb
         message: >
-          The maxconn setting used in the haproxy stanza for mysql
-          should match the MySQL max_connections setting.  Otherwise, 
+          The maxconn setting used in the haproxy stanza for mariadb
+          should match the MariaDB max_connections setting.  If absent, 
           haproxy will use a default value of 2000 for the proxy 
-          maxconn settings.
+          maxconn settings, which can lead to haproxy refusing connections and 
+          unexpected failures in a number of OpenStack commands.
 
-          Value in mysql: {{value_from_mysql}}
-
-          Value in haproxy: {{value_from_haproxy|default('(not set)')}}
+          You have configured MariaDB with max_connections set to
+          {{value_from_mariadb}}, {%- if value_from_haproxy %} and maxconn is
+          set to {{value_from_haproxy}} in your haproxy configuration{% else%}
+          and you have not set maxconn in haproxy {%- endif %}.
 
   - name: validate open file limits
     rules:
-      - name: check for appropriate mysql open_files_limit
+      - name: check for appropriate mariadb open_files_limit
         kburl: https://access.redhat.com/solutions/1602153
         vars:
           value: /etc/my.cnf.d/*[target="mysqld"]/target[. = "mysqld"]/open_files_limit
@@ -51,7 +53,7 @@ rulesets:
           value|int < 0 or value|int > 16384
         message: >
           The default file_descriptor limit for MariaDB is low for openstack.
-          We recommend to increase this to at least 16384.  Your mysql 
+          We recommend to increase this to at least 16384.  Your mariadb 
           configuration has this set to {{value}}.
 
       - name: check for appropriate rabbitmq open files limit (systemd)
