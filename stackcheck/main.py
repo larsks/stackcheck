@@ -71,7 +71,7 @@ def main():
         level=args.loglevel)
 
     formatter = stackcheck.formatter.simple.Formatter(
-        verbose=(args.loglevel == 'INFO'))
+        verbose=(args.loglevel in ['INFO', 'DEBUG']))
 
     with open(args.rules) as fd:
         rules = yaml.load(fd)
@@ -129,6 +129,7 @@ def main():
                         break
 
                 if value is not None:
+                    LOG.debug('set var "%s" = "%s"', varname, value)
                     context[varname] = value
 
             formatter.start_rule(rule)
